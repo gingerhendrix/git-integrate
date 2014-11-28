@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+# git integrate -i
+#
+# 1. Retrieves list of codereview branches, saves as .git/integrate-todo and opens GIT_EDITOR
+# 2. Runs git integrate --continue
+#
+# git integrate --continue
+#
+# 1. Current branch is top branch of rebase todo
+# 2a If local branch not present create it and run rebase -i
+#  `git checkout -b integration/#{branch} origin/codereview#{branch}`
+#  `git rebase -i develop` #Pause for interactive rebase - this is pseudo code i.e. it won't work
+# 2b If local branch present (push) and cherry pick on to release branch
+#  `git checkout #{release_branch}`
+#  `git cherry-pick develop..integration/#{branch}`
+# 3b Remove top branch of rebase todo, git checkout develop and restart
+# 2c If todo is empty we're finished - clean up and exit
+#
+# git integrate --abort
+#
+# Delete rebase-todo and run clean
+#
+# git integrate clean
+#
+# Delete all the integrate/ branches
+
+# git integrate reintegrate
+#
+# git integrate add
+# git integrate remove 
+# git integrate --skip
+# git integrate --edit-todo
+# git integrate push
+# git integrate pull
+
+
+require 'rubygems'
+require 'bundler/setup'
+require 'active_support/all'
+require File.dirname(__FILE__) + '/lib/integrate'
+
+Integrate.command
